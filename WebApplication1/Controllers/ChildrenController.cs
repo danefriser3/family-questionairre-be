@@ -43,13 +43,13 @@ namespace WebApplication1.Controllers
         [HttpPost("submit")]
         public async Task<IActionResult> SubmitChild([FromBody] Child child)
         {
-            child.Name = CapitalizeName(child.Name);
+            child.Name = CapitalizeName(child.Name ?? "");
             if (!IsValidChild(child))
             {
                 return new JsonResult(new { message = "Invalid data submitted", status =  "error" });
             }
 
-            if (child.Name == "Bugs Bunny" && child.FavoriteAnimals.Contains("bunny"))
+            if (child.Name == "Bugs Bunny" && child.FavoriteAnimals != null && child.FavoriteAnimals.Contains("bunny"))
             {
                 await _context.Children.AddAsync(child);
                 await _context.SaveChangesAsync();
@@ -111,7 +111,7 @@ namespace WebApplication1.Controllers
             return true;
         }
 
-        [GeneratedRegex(@"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$")]
+        [GeneratedRegex(@"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$")]
         private static partial Regex MyRegex();
     }
 
