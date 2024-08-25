@@ -37,7 +37,7 @@ The routes that have been managed are
 All the validation operations are managed in this controller itself.
 
 ## Running the Application
-In order to run the application, go into the root folder and execute
+In order to run the application, go into the root folder ( /WebApplication1 ) and execute
 
 `dotnet run`
 
